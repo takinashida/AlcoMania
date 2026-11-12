@@ -1,10 +1,17 @@
 package net.takinashida.moonshine.item;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.takinashida.moonshine.Config;
 import net.takinashida.moonshine.ModEffects;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Вино.
@@ -50,5 +57,14 @@ public class Wine extends DrinkableItem {
                 secondsToTicks(Config.wineEffectDurationSeconds),
                 0
         ));
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level,
+                                List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
+        tooltip.add(Component.translatable("tooltip.alcomania.wine",
+                        Config.wineDamageReduction, Config.wineSpeedPenaltyPercent)
+                .withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

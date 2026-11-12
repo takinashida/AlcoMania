@@ -9,55 +9,55 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.takinashida.moonshine.MoonShine;
 
 /**
- * Клиентский конфиг мода (файл config/alcomania-client.toml).
+ * Client config (config/alcomania-client.toml).
  *
- * Здесь находятся настройки, которые влияют только на внешний вид HUD
- * и не должны синхронизироваться с сервером:
- *  - показывать ли шкалу-бутылку;
- *  - показывать ли горизонтальную шкалу;
- *  - цвет заполнения горизонтальной шкалы.
+ * Contains settings that affect only the HUD and are not synchronized
+ * with the server:
+ *  - whether to show the bottle gauge;
+ *  - whether to show the horizontal bar;
+ *  - fill color of the horizontal bar.
  *
- * Значения кэшируются в static-полях, чтобы HUD не дёргал конфиг каждый кадр.
- * Менять их можно как вручную в TOML-файле, так и через экран настроек
- * {@link MyConfigScreen} (кнопка «Настройка» у мода в списке модов).
+ * Values are cached in static fields so the HUD does not query the config
+ * every frame. They can be changed in the TOML file or via the settings
+ * screen {@link MyConfigScreen} (the "Config" button for this mod).
  */
 @Mod.EventBusSubscriber(modid = MoonShine.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientConfig {
 
     /**
-     * Палитра, по которой ходит кнопка цвета в экране настроек.
-     * Значения — обычные RGB без альфы (0xRRGGBB).
+     * Palette cycled by the color button on the settings screen.
+     * Values are plain RGB without alpha (0xRRGGBB).
      */
     private static final int[] BAR_COLOR_PALETTE = {
-            0xD08A2C, // золотой (по умолчанию)
-            0xD0402C, // красный
-            0x4CAF50, // зелёный
-            0x4A90D9, // синий
-            0x9C5FD0, // фиолетовый
-            0x2CC7C7, // бирюзовый
-            0xE8E8E8  // белый
+            0xD08A2C, // gold (default)
+            0xD0402C, // red
+            0x4CAF50, // green
+            0x4A90D9, // blue
+            0x9C5FD0, // purple
+            0x2CC7C7, // cyan
+            0xE8E8E8  // white
     };
 
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     private static final ForgeConfigSpec.BooleanValue HUD_BOTTLE_VISIBLE = BUILDER
-            .comment("Показывать шкалу опьянения в виде бутылки в левом нижнем углу.")
+            .comment("Show the bottle-shaped drunkenness gauge in the bottom-left corner.")
             .define("hud.bottleVisible", true);
 
     private static final ForgeConfigSpec.BooleanValue HUD_BAR_VISIBLE = BUILDER
-            .comment("Показывать горизонтальную шкалу опьянения над хотбаром.")
+            .comment("Show the horizontal drunkenness bar above the hotbar.")
             .define("hud.barVisible", true);
 
     private static final ForgeConfigSpec.IntValue HUD_BAR_COLOR = BUILDER
-            .comment("Цвет заполнения горизонтальной шкалы в формате RGB (0xRRGGBB).",
-                    "Например: 0xD08A2C — золотой, 0xD0402C — красный.",
-                    "Кнопка «Цвет шкалы» в экране настроек переключает готовые цвета.")
+            .comment("Horizontal bar fill color in RGB format (0xRRGGBB).",
+                    "Examples: 0xD08A2C = gold, 0xD0402C = red.",
+                    "The \"Bar color\" button on the settings screen cycles preset colors.")
             .defineInRange("hud.barColor", 0xD08A2C, 0x000000, 0xFFFFFF);
 
-    /** Итоговое описание клиентского конфига. */
+    /** Final client config spec. */
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
-    // Кэш значений (значения по умолчанию — до загрузки конфига).
+    // Cached values (defaults used before the config is loaded).
     public static boolean hudBottleVisible = true;
     public static boolean hudBarVisible = true;
     public static int barColor = 0xD08A2C;
@@ -65,10 +65,10 @@ public final class ClientConfig {
     private ClientConfig() {
     }
 
-    /** Вызывается Forge при загрузке/перезагрузке клиентского конфига. */
+    /** Called by Forge when the client config is loaded or reloaded. */
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
-        // На MOD-шине приходят события и от общего конфига — реагируем только на свой.
+        // The MOD bus also receives common config events; react only to our spec.
         if (event.getConfig().getSpec() != SPEC) {
             return;
         }
@@ -78,28 +78,28 @@ public final class ClientConfig {
         barColor = HUD_BAR_COLOR.get() & 0xFFFFFF;
     }
 
-    /** Включает/выключает шкалу-бутылку и сразу сохраняет выбор в TOML. */
+    /** Toggles the bottle gauge and saves the choice to TOML immediately. */
     public static void setHudBottleVisible(boolean visible) {
         hudBottleVisible = visible;
         HUD_BOTTLE_VISIBLE.set(visible);
         HUD_BOTTLE_VISIBLE.save();
     }
 
-    /** Включает/выключает горизонтальную шкалу и сразу сохраняет выбор в TOML. */
+    /** Toggles the horizontal bar and saves the choice to TOML immediately. */
     public static void setHudBarVisible(boolean visible) {
         hudBarVisible = visible;
         HUD_BAR_VISIBLE.set(visible);
         HUD_BAR_VISIBLE.save();
     }
 
-    /** Меняет цвет горизонтальной шкалы и сразу сохраняет выбор в TOML. */
+    /** Changes the horizontal bar color and saves the choice to TOML immediately. */
     public static void setBarColor(int rgb) {
         barColor = rgb & 0xFFFFFF;
         HUD_BAR_COLOR.set(barColor);
         HUD_BAR_COLOR.save();
     }
 
-    /** Следующий цвет из палитры — для кнопки в экране настроек. */
+    /** Next color from the palette, used by the settings screen button. */
     public static int nextBarColor() {
         for (int i = 0; i < BAR_COLOR_PALETTE.length; i++) {
             if (BAR_COLOR_PALETTE[i] == barColor) {
@@ -109,12 +109,12 @@ public final class ClientConfig {
         return BAR_COLOR_PALETTE[0];
     }
 
-    /** Цвет заполнения шкалы с непрозрачной альфой. */
+    /** Opaque fill color of the bar. */
     public static int getBarFillColor() {
         return 0xFF000000 | barColor;
     }
 
-    /** Более светлый оттенок цвета заполнения — для блика сверху. */
+    /** Lighter shade of the fill color, used for the top highlight. */
     public static int getBarHighlightColor() {
         int red = lighten((barColor >> 16) & 0xFF);
         int green = lighten((barColor >> 8) & 0xFF);
@@ -126,7 +126,7 @@ public final class ClientConfig {
         return channel + (255 - channel) * 45 / 100;
     }
 
-    /** Текст кнопки цвета: «Цвет шкалы: #RRGGBB». */
+    /** Button label: "Bar color: #RRGGBB". */
     public static Component barColorText(Component label) {
         Component value = Component.literal(String.format("#%06X", barColor))
                 .withStyle(style -> style.withColor(barColor));

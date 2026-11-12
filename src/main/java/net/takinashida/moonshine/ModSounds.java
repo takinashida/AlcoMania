@@ -10,11 +10,12 @@ import net.minecraftforge.registries.RegistryObject;
 /**
  * Звуковые события мода.
  *
- * Сами ogg-файлы лежат в assets/moonshine/sounds/:
+ * Сами ogg-файлы лежат в assets/alcomania/sounds/:
  *  - honeys_remove.ogg — звук снятия/окончания «Медового щита»;
- *  - heart_beat.ogg    — сердцебиение во время действия виски.
+ *  - heart_beat.ogg    — сердцебиение во время действия виски;
+ *  - sonar.ogg         — «пинг» импульса подсветки от водки.
  *
- * Регистрация описана в assets/moonshine/sounds.json.
+ * Регистрация описана в assets/alcomania/sounds.json.
  */
 public final class ModSounds {
 
@@ -28,6 +29,10 @@ public final class ModSounds {
     /** Сердцебиение во время эффекта виски. */
     public static final RegistryObject<SoundEvent> HEART_BEAT =
             register("heart_beat");
+
+    /** «Пинг» сонара, звучащий в начале каждого импульса подсветки от водки. */
+    public static final RegistryObject<SoundEvent> SONAR =
+            register("sonar");
 
     private ModSounds() {
     }

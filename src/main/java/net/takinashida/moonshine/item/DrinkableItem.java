@@ -70,6 +70,15 @@ public abstract class DrinkableItem extends Item {
     /** Перезарядка между глотками в секундах. 0 = без перезарядки. */
     protected abstract int getCooldownSeconds();
 
+    /**
+     * Перезарядка в тиках; 0 — без перезарядки.
+     * Нужна снаружи класса (например, чтобы перенести остаток кулдауна
+     * на нового игрока после смерти).
+     */
+    public int getCooldownTicks() {
+        return Math.max(0, getCooldownSeconds()) * 20;
+    }
+
     /** Дополнительный эффект конкретного напитка (скорость, лечение и т.п.). */
     protected abstract void applyBonus(Player player, Level level);
 
@@ -148,7 +157,7 @@ public abstract class DrinkableItem extends Item {
 
             // 4. Запускаем перезарядку. Кулдаун хранится у игрока и сам
             //    синхронизируется на клиент, поэтому вызываем только на сервере.
-            int cooldownTicks = getCooldownSeconds() * 20;
+            int cooldownTicks = getCooldownTicks();
             if (cooldownTicks > 0) {
                 player.getCooldowns().addCooldown(this, cooldownTicks);
             }

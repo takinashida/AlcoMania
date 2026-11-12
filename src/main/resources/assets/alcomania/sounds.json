@@ -14,5 +14,13 @@
         "stream": false
       }
     ]
+  },
+  "sonar": {
+    "sounds": [
+      {
+        "name": "alcomania:sonar",
+        "stream": false
+      }
+    ]
   }
 }
