@@ -1,0 +1,40 @@
+{
+  "_comment": "Пост-эффект 'пьяное размытие'. Minecraft читает этот файл из assets/alcomania/shaders/post/blur.json. Два прохода (горизонталь + вертикаль) дают дешёвое размытие по квадрату.",
+  "targets": [
+    "swap"
+  ],
+  "passes": [
+    {
+      "_comment": "Первый проход: размываем по горизонтали. 'minecraft:main' — основной кадр игры, 'swap' — наша временная текстура.",
+      "name": "alcomania:blur",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "uniforms": [
+        {
+          "name": "BlurDir",
+          "values": [ 1.0, 0.0 ]
+        },
+        {
+          "name": "Radius",
+          "values": [ 2.0 ]
+        }
+      ]
+    },
+    {
+      "_comment": "Второй проход: размываем по вертикали и возвращаем результат в основной кадр.",
+      "name": "alcomania:blur",
+      "intarget": "swap",
+      "outtarget": "minecraft:main",
+      "uniforms": [
+        {
+          "name": "BlurDir",
+          "values": [ 0.0, 1.0 ]
+        },
+        {
+          "name": "Radius",
+          "values": [ 2.0 ]
+        }
+      ]
+    }
+  ]
+}

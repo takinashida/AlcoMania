@@ -1,29 +1,44 @@
 package net.takinashida.moonshine.capability;
 
-import java.util.Objects;
+import net.takinashida.moonshine.Config;
 
+/**
+ * Данные одного игрока: сколько у него сейчас "опьянения".
+ *
+ * 0   — трезвый.
+ * 25  — начинается лёгкое шатание камеры.
+ * 50  — добавляется замедление.
+ * 75  — добавляется слабость.
+ * 100 — смерть (порог настраивается в конфиге).
+ *
+ * Конкретные числа берутся из {@link Config}, чтобы менять баланс без правки кода.
+ */
 public class DrunkennessInstance {
+
+    /** Текущее значение опьянения. */
     private int value;
 
-    public DrunkennessInstance() {
-        this.value = 0;
-    }
-
-    public DrunkennessInstance(int value) {
-        this.value = value;
-    }
-
+    /** Получить текущее значение. */
     public int getValue() {
         return value;
     }
 
+    /**
+     * Установить значение.
+     * Ниже нуля опуститься нельзя, сверху ограничения нет:
+     * если игрок выпьет слишком много за раз, значение уйдёт выше порога и он умрёт.
+     */
     public void setValue(int value) {
-        // Cap the value between 0 and 100 (until we decide how death is handled exactly, but we'll cap for the progress bar logic)
-        this.value = Math.max(0, Math.min(100, value));
+        this.value = Math.max(0, value);
     }
-    
-    // Helper for death logic where value might exceed 100
-    public void setValueUncapped(int value) {
-        this.value = value;
+
+    /** Прибавить к опьянению указанное количество (например, +30 за сидр). */
+    public void add(int amount) {
+        this.value = Math.max(0, this.value + amount);
+    }
+
+    /** Достигнут ли смертельный порог (значение из конфига). */
+    public boolean isDeadly() {
+        return value >= Config.deathThreshold;
     }
 }

@@ -1,18 +1,29 @@
 package net.takinashida.moonshine.capability;
 
-import net.minecraftforge.common.Capability;
-import net.minecraftforge.common.CapabilityHolder;
-import net.minecraftforge.common.network.NetworkRegistry;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
 
-public class DrunkennessCapability {
-    public static final Capability<DrunkennessInstance> DRUNKENNESS = Capability.newCapability(
-            "moonshine",
-            "drunkenness",
-            () -> new DrunkennessInstance(),
-            DrunkennessInstance::new,
-            DrunkennessInstance::new
-    );
+/**
+ * Описание capability "Опьянение".
+ *
+ * Capability — это способ Forge прикрепить свои данные к чужому объекту (например, к игроку),
+ * не изменяя сам класс игрока.
+ *
+ * Здесь мы создаём "ключ", по которому потом сможем получить данные:
+ *     player.getCapability(DrunkennessCapability.DRUNKENNESS)
+ */
+public final class DrunkennessCapability {
 
-    public static final CapabilityHolder<DrunkennessInstance> DRUNKENNESS_CAPABILITY = 
-            NetworkRegistry.INSTANCE.registerCapability(DRUNKENNESS, "drunkenness");
+    /**
+     * Токен нужен, чтобы Forge мог создать Capability до того, как будет зарегистрирована
+     * реализация. Конкретный класс данных (DrunkennessInstance) указывается при регистрации
+     * в CapabilityRegistration.
+     */
+    public static final Capability<DrunkennessInstance> DRUNKENNESS =
+            CapabilityManager.get(new CapabilityToken<>() {
+            });
+
+    private DrunkennessCapability() {
+    }
 }

@@ -1,39 +1,51 @@
 package net.takinashida.moonshine.item;
 
-import net.takinashida.moonshine.capability.DrunkennessCapability;
-import net.takinashida.moonshine.capability.DrunkennessInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import net.takinashida.moonshine.Config;
+import net.takinashida.moonshine.ModEffects;
 
+/**
+ * Яблочный сидр.
+ *
+ * Характеристики (все значения можно поменять в конфиге):
+ *  - опьянение: items.cider.drunkenness (по умолчанию +30);
+ *  - кастомный эффект alcomania:cider (Скорость II) на items.cider.effectDurationSeconds;
+ *  - применений: items.cider.uses (по умолчанию 2);
+ *  - перезарядка: items.cider.cooldownSeconds (по умолчанию 30 секунд).
+ */
 public class AppleCider extends DrinkableItem {
+
     public AppleCider() {
-        super(new Item.Properties().stacks(16).useTime(1));
+        // Общие настройки (1 стак, прочность-заглушка) задаются в DrinkableItem.
+        super(new net.minecraft.world.item.Item.Properties());
     }
 
     @Override
-    public InteractionResult use(Level world, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        
-        if (!world.isClientSide) {
-            DrunkennessInstance instance = DrunkennessCapability.DRUNKENNESS_CAPABILITY.get(player);
-            if (instance != null) {
-                int current = instance.getValue();
-                instance.setValue(current + 30);
-            }
-            
-            // Apply Effect: Speed II for 30 seconds
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 30 * 20, 1));
-            
-            // Reduce charge
-            if (stack.getCount() > 1) {
-                stack.setAmount(stack.getCount() - 1);
-            } else {
-                player.setItemInHand(hand, ItemStack.EMPTY);
-            }
-        }
-        
-        return InteractionResult.SUCCESS;
+    protected int getDrunkenness() {
+        return Config.ciderDrunkenness;
+    }
+
+    @Override
+    protected int getMaxUses() {
+        return Config.ciderUses;
+    }
+
+    @Override
+    protected int getCooldownSeconds() {
+        return Config.ciderCooldownSeconds;
+    }
+
+    @Override
+    protected void applyBonus(Player player, Level level) {
+        // Выдаём НАШ кастомный эффект, а не ванильную MobEffects.MOVEMENT_SPEED.
+        // Своя иконка + своё название в интерфейсе, плюс он не конфликтует
+        // с обычной Скоростью из зелий (у модификаторов разные UUID).
+        player.addEffect(new MobEffectInstance(
+                ModEffects.CIDER.get(),
+                secondsToTicks(Config.ciderEffectDurationSeconds),
+                Config.ciderSpeedAmplifier
+        ));
     }
 }

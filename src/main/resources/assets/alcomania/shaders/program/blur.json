@@ -1,0 +1,22 @@
+{
+  "_comment": "Описание программы пост-обработки. Загружается из assets/alcomania/shaders/program/blur.json, потому что в shaders/post/blur.json имя прохода указано как 'alcomania:blur'. Поля vertex/fragment тоже обязаны содержать namespace, иначе игра будет искать файлы в minecraft:shaders/program/.",
+  "blend": {
+    "_comment": "Обычная замена пикселей: результат прохода полностью перекрывает то, что было в целевой текстуре.",
+    "func": "add",
+    "srcrgb": "one",
+    "dstrgb": "zero"
+  },
+  "vertex": "alcomania:blur",
+  "fragment": "alcomania:blur",
+  "attributes": [ "Position" ],
+  "samplers": [
+    { "name": "DiffuseSampler" }
+  ],
+  "uniforms": [
+    { "name": "ProjMat",  "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+    { "name": "InSize",   "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+    { "name": "OutSize",  "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+    { "name": "BlurDir",  "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] },
+    { "name": "Radius",   "type": "float",     "count": 1,  "values": [ 2.0 ] }
+  ]
+}

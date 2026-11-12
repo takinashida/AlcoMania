@@ -1,0 +1,18 @@
+{
+  "heart_beat": {
+    "sounds": [
+      {
+        "name": "alcomania:heart_beat",
+        "stream": false
+      }
+    ]
+  },
+  "honeys_remove": {
+    "sounds": [
+      {
+        "name": "alcomania:honeys_remove",
+        "stream": false
+      }
+    ]
+  }
+}
