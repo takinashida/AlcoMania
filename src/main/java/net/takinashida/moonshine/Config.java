@@ -83,15 +83,15 @@ public final class Config {
     // =========================================================================
     private static final ForgeConfigSpec.DoubleValue SWAY_YAW_DEGREES = BUILDER
             .comment("Maximum left-right camera sway amplitude (in degrees).")
-            .defineInRange("visual.swayYawDegrees", 14.0D, 0.0D, 45.0D);
+            .defineInRange("visual.swayYawDegrees", 9.0D, 0.0D, 45.0D);
 
     private static final ForgeConfigSpec.DoubleValue SWAY_PITCH_DEGREES = BUILDER
             .comment("Maximum up-down camera sway amplitude (in degrees).")
-            .defineInRange("visual.swayPitchDegrees", 8.0D, 0.0D, 45.0D);
+            .defineInRange("visual.swayPitchDegrees", 6.0D, 0.0D, 45.0D);
 
     private static final ForgeConfigSpec.DoubleValue SWAY_ROLL_DEGREES = BUILDER
             .comment("Maximum horizon roll (tilt) in degrees.")
-            .defineInRange("visual.swayRollDegrees", 6.0D, 0.0D, 45.0D);
+            .defineInRange("visual.swayRollDegrees", 3.0D, 0.0D, 45.0D);
 
     // ---- Sway strength tiers ----
     private static final ForgeConfigSpec.DoubleValue SWAY_TIER1_STRENGTH = BUILDER
@@ -334,9 +334,9 @@ public final class Config {
     public static int witherAmplifier = 3;
     public static int effectDurationTicks = 200;
 
-    public static double swayYawDegrees = 14.0D;
-    public static double swayPitchDegrees = 8.0D;
-    public static double swayRollDegrees = 6.0D;
+    public static double swayYawDegrees = 9.0D;
+    public static double swayPitchDegrees = 6.0D;
+    public static double swayRollDegrees = 3.0D;
     public static double swayTier1Strength = 0.35D;
     public static double swayTier2Strength = 0.7D;
     public static double swayTier3Strength = 1.0D;
