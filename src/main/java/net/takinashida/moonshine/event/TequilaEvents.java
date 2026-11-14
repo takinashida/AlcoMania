@@ -53,11 +53,8 @@ public final class TequilaEvents {
 
         boolean shouldApply = target.hasEffect(ModEffects.TEQUILA_BURN.get());
 
-        // Выстрел игрока под текилой накладывает горение.
-        boolean isShot = event.getSource().is(DamageTypeTags.IS_PROJECTILE)
-                || event.getSource().getDirectEntity() instanceof Projectile;
+        // K.,jq lамаг от игрока под текилой накладывает горение.
         if (!shouldApply
-                && isShot
                 && event.getSource().getEntity() instanceof Player shooter
                 && shooter.hasEffect(ModEffects.TEQUILA.get())) {
             shouldApply = true;
