@@ -122,6 +122,17 @@ public final class SwayClientHandler {
             return;
         }
 
+        /*
+         * Не шатаем реальный поворот во время добычи блока.
+         * Иначе прицел уезжает с блока, и клиент/сервер постоянно
+         * сбрасывают прогресс ломания. Это особенно мешает эффектам
+         * вроде ликёра, который должен ускорять добычу.
+         */
+        if (minecraft.gameMode != null && minecraft.gameMode.isDestroying()) {
+            restorePlayerRotation(player);
+            return;
+        }
+
         // Целевая сила эффекта по текущему опьянению (0..1).
         float targetStrength = calculateTargetStrength(ClientData.getDrunkenness());
 

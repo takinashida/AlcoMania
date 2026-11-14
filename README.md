@@ -1,295 +1,216 @@
-# alcomania
+<div>
 
-Небольшой мод для **Minecraft Forge 1.20.1**, который добавляет систему опьянения.
+[English](README.ru.md) | [Русский](README.ru.md)
 
-## Что делает мод
+</div>
 
-| Опьянение | Что происходит |
+# AlcoMania
+
+A small mod for **Minecraft Forge 1.20.1**, which adds an intoxication system.
+
+## What does the mod do
+
+| Intoxication | What's going on |
 |-----------|----------------|
-| 0         | Всё нормально. |
-| 25+       | Камера слабо шатается, появляется эффект **Sway**.|
-| 50+       | Шатание усиливается|
-| 75+       | Шатание максимальное|
-| > 100     | Дополнительно накладывается **иссушение IV**. |
+| 0 | Everything is fine. |
+| 25+ | The camera sways slightly, and the **Sway** effect appears.|
+| 50+ | The wobble is getting worse|
+| 75+ | Maximum Wobble|
+| > 100 | Additionally superimposed ** desiccation IV**. |
 
-Опьянение само уменьшается на **1 единицу в секунду** (настраивается в `config/alcomania-common.toml`).
+Intoxication itself decreases by **1 unit per second** (configured in `config/alcomania-common.toml`).
 
-> Иссушение вешается строго выше `witherThreshold` (по умолчанию 100).
-> Так как смерть наступает уже на `deathThreshold` (тоже 100), по умолчанию
-> иссушение успевает только наложиться в момент смерти. Поднимите
-> `deathThreshold`, например до 120, если хотите, чтобы игрок жил и страдал от него.
+> Desiccation is set strictly above the `witherThreshold' (default is 100).
+> Since death occurs already at `deathThreshold' (also 100), by default
+> desiccation only has time to overlap at the moment of death. Lift it up
+> `deathThreshold', for example up to 120, if you want the player to live and suffer from it.
 
-## Напитки
+## Drinks
 
-| Предмет | Опьянение | Бонус | Применений | Перезарядка |
+| Item | Intoxication | Bonus | Uses | Recharge |
 |---------|-----------|-------|------------|-------------|
-| Яблочный сидр (`alcomania:apple_cider`) | +30 | Кастомный эффект «Сидр» (Скорость II) на 30 секунд | 2 | 30 сек |
-| Пиво (`alcomania:beer`) | +40 | Восстанавливает 16 HP (8 сердец) | 2 | — |
-| Водка (`alcomania:vodka`) | +100 | Эффект «Водка»: каждые 5 секунд на 1 секунду подсвечивает сущности в радиусе 16 блоков (сквозь стены, только выпившему) и проигрывает звук сонара, 30 секунд | 4 | 30 сек |
-| Вино (`alcomania:wine`) | +75 | Кастомный эффект «Вино»: −1 единица ко входящему урону (кроме голода и утопления) и −10% к скорости на 30 секунд | 4 | 30 сек |
-| Виски (`alcomania:whisky`) | +80 | Полная неуязвимость на 10 секунд, затем гарантированная смерть | 3 | 30 сек |
-| Медовуха (`alcomania:honey`) | +30 | Одноразовый «Медовый щит»: блокирует 100% урона из любых источников и исчезает после первого поглощения | 4 | 10 сек |
-| Текила (`alcomania:tequila`) | +100 | Эффект «Текила» на 30 секунд: попадания снарядов накладывают горение — 1 урон каждые 2 сек. в течение 8 сек., партиклы пламени вокруг цели и −50% к входящему исцелению; новое попадание обновляет эффект. Огнестойкость не защищает, вода не останавливает эффект | 4 | — |
-| Ликёр (`alcomania:liqueur`) | +50 | Эффект «Ликёр» на 6 минут: +50% к скорости добычи киркой/топором и 20% шанс двойного лута на железной/угольной руде и `jeg:brimstone_ore` | 2 | 10 мин |
-| Рассол (`alcomania:rassol`) | 0 | Снимает **все** эффекты и обнуляет шкалу опьянения | 1 | 30 сек |
+| Apple cider ('alcomania:apple_cider') | +30 | Custom effect "Cider" (Speed II) for 30 seconds | 2 | 30 sec |
+| Beer (`alcomania:beer`) | +40 | Restores 16 HP (8 hearts) | 2 | — |
+| Vodka (`alcomania:vodka`) | +100 | Vodka effect: every 5 seconds for 1 second highlights entities within a radius of 16 blocks (through walls, only to the drinker) and plays a sonar sound, 30 seconds | 4 | 30 seconds |
+| Wine (`alcomania:wine') | +75 | Custom effect "Wine": -1 unit to incoming damage (except starvation and drowning) and -10% to speed for 30 seconds | 4 | 30 sec |
+| Whiskey (`alcomania:whisky') | +80 | Full invulnerability for 10 seconds, then guaranteed death | 3 | 30 seconds |
+| Mead (`alcomania:honey`) | +30 | One-time "Honey Shield": blocks 100% damage from any source and disappears after the first absorption | 4 | 10 sec |
+| Tequila (`alcomania:tequila`) | +100 | Tequila effect for 30 seconds: Projectile hits cause gorenje — 1 damage every 2 seconds. for 8 seconds, flame particles around the target and -50% incoming healing; a new hit updates the effect. Fire resistance does not protect, water does not stop the effect | 4 | — |
+| Liquor (`alcomania:liqueur') | +50 | Liquor effect for 6 minutes: +50% pickaxe/axe extraction speed and 20% chance of double loot on iron/coal ore and `jeg:brimstone_ore` | 2 | 10 min |
+| Brine (`alcomania:rassol`) | 0 | Removes **all** effects and resets the intoxication scale | 1 | 30 sec |
 
-> **Совместимость с Survivor's Arsenal:** если установлен
-> `survivorsarsenal-1.1.7_test_version.jar`, то после последнего применения
-> любой алкоголь выбрасывает `survivorsarsenal:empty_glass_bottle`.
-> Рассол пустую бутылку не оставляет.
+> **Survivor's Arsenal Compatibility:** if installed
+> `survivorsarsenal-1.1.7_test_version.jar`, then after the last application
+> any alcohol emits `survivorsarsenal:empty_glass_bottle'.
+> Brine does not leave an empty bottle.
 
-Количество применений хранится **в прочности предмета**, а не в NBT.
-Поэтому в инвентаре видна обычная полоска прочности: она показывает, сколько глотков осталось.
-Питьё занимает **32 тика (1.6 секунды)** и использует анимацию `UseAnim.DRINK`, как у зелий.
+The number of uses is stored ** in the strength of the item**, not in NBT.
+Therefore, the usual strength bar is visible in the inventory: it shows how many sips are left.
+Drinking takes **32 ticks (1.6 seconds)** and uses the animation `UseAnim.DRINK', like potions.
 
-Перезарядка напитков **не сбрасывается после смерти**: остаток кулдауна переносится
-на возрождённого игрока, поэтому сразу после респавна выпить тот же напиток нельзя.
+Recharge of drinks **does not reset after death**: The remainder of the cooldown is transferred
+to the revived player, so you cannot drink the same drink immediately after respawn.
 
-Все числа из таблицы (опьянение, применения, длительность эффектов, бонусы,
-перезарядка) вынесены в конфиг.
+All the numbers from the table (intoxication, applications, duration of effects, bonuses,
+recharge) are displayed in the config.
 
-> **Виски:** эффект длится 10 секунд и даёт полную неуязвимость. Когда эффект
-> заканчивается или его снимают молоком/командой, игрок гарантированно умирает.
-> В момент употребления один раз звучит плевок ламы, а во время действия
-> игрок слышит сердцебиение — только он, другие игроки его не слышат.
+> **Whiskey:** The effect lasts for 10 seconds and gives full invulnerability. When is the effect
+> ends or is removed by milk/command, the player is guaranteed to die.
+> At the moment of consumption, the llama spit sounds once, and during the action
+> the player hears the heartbeat — only he, the other players do not hear it.
 >
-> **Медовуха:** при снятии или окончании «Медового щита» играет звук
-> разрушения щита.
+> **Mead:** when removing or ending the "Honey Shield", a sound plays
+> shield destruction.
 
-### Совместимость с Hardcore True Darkness
+### Compatible with Hardcore True Darkness
 
-Эффект **`alcomania:night_vision`** («Ночное зрение») — отдельный эффект,
-который на сервере поддерживает ванильный Night Vision с короткой
-длительностью и скрытой иконкой. Если Night Vision снимут, он будет добавлен
-снова в ближайшем тике.
+Effect **`alcomania:night_vision`** ("Night Vision") is a separate effect
+that supports vanilla Night Vision on the server with a short
+duration and hidden icon. If Night Vision is removed, it will be added
+again in the next tick.
 
-Hardcore True Darkness видит ванильный Night Vision и отключает свою темноту,
-поэтому эффект работает и вместе с этим модом. `/effect clear` корректно
-снимает и кастомный эффект, и поддерживаемый Night Vision.
+Hardcore True Darkness sees vanilla Night Vision and turns off its darkness,
+so the effect works with this mod as well. '/effect clear` correctly
+removes both the custom effect and the supported Night Vision.
 
-Выдать эффект можно вручную:
+You can set the effect manually:
 
 ```mcfunction
 /effect give @s alcomania:night_vision 60 0
 ```
 
-### Спектральный эффект
+### Spectral effect
 
-Добавлен отдельный эффект **`alcomania:spectral`** («Спектральный»),
-сделанный по мотивам ванильного Glowing:
+Added a separate effect **`alcomania:spectral`** ("Spectral"),
+based on vanilla Glowing:
 
-- игрок с этим эффектом подсвечивается бирюзовым оттенком;
-- подсветка не показывает игрока сквозь стены — он виден только в прямой видимости;
-- ванильный Glowing и спектральные стрелы **не изменены** и работают как раньше.
+- A player with this effect is highlighted with a turquoise hue.;
+- the backlight does not show the player through the walls — he is only visible in line of sight;
+- Vanilla Glowing and spectral arrows **are not changed** and work as before.
 
-Применить эффект можно командой:
+You can apply the effect with the command:
 
 ```mcfunction
 /effect give @s alcomania:spectral 30 0
 ```
 
-## Структура кода
+## Code structure
 
 ```
 src/main/java/net/takinashida/moonshine/
-├── MoonShine.java                  — точка входа мода
-├── Config.java                     — все настройки баланса и визуала
-├── ModItems.java                   — регистрация предметов
-├── ModEffects.java                 — регистрация кастомных эффектов
-├── ModSounds.java                  — регистрация звуков mod'а
-├── ModCreativeTabs.java             — добавление предметов в креатив
+├── MoonShine.java is the mod's entry point
+├── Config.java — all balance and visual settings
+├── ModItems.java — registration of items
+├── ModEffects.java — registration of custom effects
+├── ModSounds.java — registration of mod sounds
+├── ModCreativeTabs.java — adding items to the creative
 ├── capability/
-│   ├── DrunkennessCapability.java  — ключ capability
-│   ├── DrunkennessInstance.java    — само значение опьянения
-│   ├── DrunkennessProvider.java    — хранение и сохранение в NBT
-│   └── CapabilityRegistration.java — регистрация capability
+│   ├── DrunkennessCapability.java capability key
+│   ├── DrunkennessInstance.java — the very meaning of intoxication
+│   ├── DrunkennessProvider.java storage and preservation in NBT
+│   └── CapabilityRegistration.java registration capability
 ├── event/
-│   ├── CapabilityAttachHandler.java — выдача capability игроку и синхронизация
-│   ├── ModEvents.java              — трезвение, эффекты, смерть, иссушение
-│   ├── CombatEvents.java           — вино и щит медовухи
-│   ├── TequilaEvents.java          — горение и снижение исцеления от текилы
-│   └── LiqueurEvents.java          — скорость добычи и двойной лут от ликёра
+│   ├── CapabilityAttachHandler.java — issuing capability to the player and synchronization
+│   ├── ModEvents.java — Sobriety, Effects, death, desiccation
+│   ├── CombatEvents.Java — wine and a shield of mead
+│   ├── TequilaEvents.Java gorenje and the reduction of healing from tequila
+│   └── LiqueurEvents.java — mining speed and double loot from liquor
 ├── item/
-│   ├── DrinkableItem.java          — общая логика питья, прочности и кулдауна
-│   ├── AppleCider.java             — яблочный сидр
-│   ├── BeerBottle.java             — пиво (id: alcomania:beer)
-│   ├── Vodka.java                  — водка
-│   ├── Wine.java                   — вино
-│   ├── Whisky.java                 — виски (неуязвимость + смерть после эффекта)
-│   ├── Honey.java                  — медовуха (одноразовый щит)
-│   ├── Tequila.java                — текила (горение от выстрелов)
-│   ├── Liqueur.java                — ликёр (скорость добычи и двойной лут)
-│   └── Rassol.java                 — рассол
+│ ├── DrinkableItem.java — the general logic of drinking, strength, and cooldown
+│   ├── AppleCider.java — apple cider
+│   ├── BeerBottle.java beer (id: alcomania:beer)
+│   ├── Vodka.java vodka
+│   ├── Wine.java wine
+│   ├── Whisky.java whiskey (invulnerability + death after effect)
+│ ├── Honey.Java mead (disposable shield)
+│   ├── Tequila.java — tequila (burning from shots)
+│ ├── Liqueur. GorenjeJava liquor (mining speed and double loot)
+│   └── Rassol.java pickle
 ├── effect/
-│   ├── SwayEffect.java             — эффект-маркер «Шатание»
-│   ├── CiderEffect.java            — кастомный эффект «Сидр» (Скорость II)
-│   ├── VodkaEffect.java            — кастомный эффект «Водка» (подсветка в радиусе)
-│   ├── WineEffect.java             — кастомный эффект «Вино» (−1 урона, −10% скорости)
-│   ├── WhiskyEffect.java           — эффект «Виски» (неуязвимость, смерть при снятии)
-│   ├── HoneyEffect.java            — эффект «Медовый щит» (одноразовая блокировка урона)
-│   ├── SpectralEffect.java         — эффект «Спектральный» (подсветка без «рентгена»)
-│   ├── TequilaEffect.java          — бафф текилы
-│   ├── TequilaBurnEffect.java      — горение (урон во времени, пламя + −50% исцеления)
-│   ├── LiqueurEffect.java          — бафф ликёра
-│   └── NightVisionEffect.java      — «Ночное зрение», не блокируется Darkness-модами
+│   ├── SwayEffect.java effect marker "Wobble"
+│ ├── CiderEffect.java — custom effect "Cider" (Speed II)
+│ ├── VodkaEffect.java — custom effect "Vodka" (illumination in a radius)
+│   ├── WineEffect.java — custom effect "Wine" (-1 damage, -10% speed)
+│ ├── WhiskyEffect.java Whiskey effect (invulnerability, death when removed)
+│   ├── HoneyEffect.Java effect "Honey Shield" (one—time damage blocking)
+│ ├── SpectralEffect.Java effect is "Spectral" (illumination without "X—ray").
+TequilaEffect.java tequila buff
+│   ├── TequilaBurnEffect.java — gorenje (time damage, flame + -50% healing)
+│ ├── LiqueurEffect.java liquor buff
+│   └── NightVisionEffect.java — "Night vision", not blocked by Darkness mods
 ├── network/
-│   ├── Networking.java             — сетевой канал
-│   └── SyncDrunkennessPacket.java  — пакет «сервер → клиент»
+│   ├── Networking.java network channel
+│   └── SyncDrunkennessPacket.java package "server → client"
 └── client/
-    ├── ClientModEvents.java        — регистрация HUD и экрана конфига
-    ├── ClientConfig.java           — клиентский конфиг (видимость шкал)
-    ├── MyConfigScreen.java         — экран настроек мода
-    ├── ClientData.java             — клиентский кэш значения
-    ├── DrunkennessHUD.java         — шкала опьянения в виде бутылки
-    ├── DrunkennessBarHUD.java      — горизонтальная шкала опьянения (4 сегмента)
-    ├── SpectralEffectRenderHandler.java — подсветка Spectral без «рентгена»
-    ├── VodkaSightClientHandler.java — клиентская подсветка сущностей от водки
-    ├── WhiskySoundClientHandler.java — сердцебиение от виски только для игрока
-    └── SwayClientHandler.java      — шатание камеры и размытие
+    ├── ClientModEvents.java registration of the HUD and configuration screen
+    ├── ClientConfig.java client configuration (scale visibility)
+├── MyConfigScreen.java mod settings screen
+    ├── ClientData.java — client value cache
+    ├── DrunkennessHUD.java scale of intoxication in the form of a bottle
+    ├── DrunkennessBarHUD.java — horizontal scale of intoxication (4 segments)
+├── Spectraleffecterderhandler.java illumination Spectral without "X—ray"
+├── VodkaSightClientHandler.java — client highlighting of entities from vodka
+    ├── WhiskySoundClientHandler.Java — Whiskey Heartbeat for player only
+    └── SwayClientHandler.java — Camera wobble and blurring
 ```
 
-## Шейдер размытия (отключён)
+## Blur shader (disabled)
 
-> **Внимание:** размытие сейчас отключено — весь код, который его включает,
-> закомментирован в `SwayClientHandler.java` и помечен `БЛЮР ОТКЛЮЧЁН`.
-> Шатание камеры продолжает работать.
+> **Attention:** blurring is disabled now — all the code that enables it,
+> commented out in `SwayClientHandler.java` and marked with `BLUER DISABLED'.
+> Camera wobble continues to work.
 
-Файлы лежат в `src/main/resources/assets/alcomania/shaders/`:
+The files are located in `src/main/resources/assets/alcomania/shaders/`:
 
 ```
-post/blur.json       — цепочка из двух проходов (горизонталь + вертикаль)
-program/blur.json    — описание программы
-program/blur.vsh     — вершинный шейдер
-program/blur.fsh     — фрагментный шейдер
+post/blur.json is a chain of two passes (horizontal + vertical)
+program/blur.json description of the program
+program/blur.vsh — vertex shader
+program/blur.fsh — fragment shader
 ```
 
-**Важно:** в `post/blur.json` проходы называются `alcomania:blur`, а в `program/blur.json`
-поля `vertex` и `fragment` тоже имеют namespace `alcomania:blur`. Если убрать namespace,
-Minecraft будет искать файлы в `minecraft:shaders/program/`, не найдёт их и размытие
-не загрузится. Сила размытия задаётся полем `Radius` (сейчас `2.0` — лёгкое размытие).
+**Important:** in the `post/blur.json` passages are called `alcomania:blur`, and in `program/blur.The json
+`vertex` and `fragment` fields also have the namespace `alcomania`.:blur`. If you remove the namespace,
+Minecraft will search for files in `minecraft:shaders/program/`, it will not find them and blur
+it won't load. The amount of blur is set by the `Radius` field (currently `2.0` is a light blur).
 
-Комментарии в `.vsh`/`.fsh` специально написаны ASCII-символами: не все драйверы
-принимают не-ASCII байты даже внутри комментариев GLSL.
+Comments in `.vsh`/`.fsh` are specifically written in ASCII characters: not all drivers
+accept non-ASCII bytes even inside GLSL comments.
 
-## Сборка
+## Assembly
 
 ```bash
 gradlew build
 ```
 
-Готовый мод: `build/libs/alcomania-1.5.jar`.
+Ready-made mod: `build/libs/alcomania-1.0.0.jar `.
 
-## Настройка
+## Setting up
 
-Общие игровые значения — файл `config/alcomania-common.toml`.
-Видимость шкал HUD — клиентский файл `config/alcomania-client.toml`:
+The common game values are the file `config/alcomania-common.toml`.
+HUD scale visibility — client file `config/alcomania-client.toml`:
 
 ```toml
 [hud]
-# Показывать шкалу-бутылку в левом нижнем углу.
+# Show the bottle scale in the lower left corner.
 bottleVisible = true
-# Показывать горизонтальную шкалу над хотбаром.
+# Show the horizontal scale above the hotbar.
 barVisible = true
-# Цвет заполнения шкалы в формате RGB (0xRRGGBB).
+# Scale fill color in RGB format (0xRRGGBB).
 barColor = 0xD08A2C
 ```
 
-Обе шкалы и цвет горизонтальной шкалы также можно менять через кнопку
-«Настройка» у alcomania в списке модов — она открывает экран `MyConfigScreen`.
-Кнопка «Цвет шкалы» переключает готовую палитру, а точное значение RGB
-можно вписать в `alcomania-client.toml` вручную.
+Both scales and the color of the horizontal scale can also be changed via
+the "Customize" button on alcomania in the list of mods — it opens the "MyConfigScreen" screen.
+The "Scale color" button switches the finished palette, and the exact RGB value
+can be entered manually in "alcomania-client.toml".
 
-Значения общего конфига сгруппированы по секциям:
+The values of the general configuration are grouped into sections:
 
 ```toml
 [drunkenness]
-# Как часто уменьшать опьянение (в тиках). 20 тиков = 1 секунда.
+# How often to reduce intoxication (in ticks). 20 ticks = 1 second.
 decayIntervalTicks = 20
-# Сколько единиц опьянения убирать за один шаг.
+# How many intoxication units to remove in one step.
 decayAmount = 1
-# Пороги эффектов и смерти.
-swayThreshold = 25
-slownessThreshold = 50
-weaknessThreshold = 75
-blindnessThreshold = 100
-deathThreshold = 100
-# Сегменты силы шатания: 25..49 / 50..74 / 75+.
-swayTier2Threshold = 50
-swayTier3Threshold = 75
-# Иссушение вешается при значении СТРОГО выше this.
-witherThreshold = 100
-# 0 = Иссушение I, 1 = II, 2 = III, 3 = IV.
-witherAmplifier = 3
-
-[visual]
-# Максимальная амплитуда шатания камеры в градусах.
-swayYawDegrees = 14.0
-swayPitchDegrees = 8.0
-swayRollDegrees = 6.0
-# Сила шатания по сегментам (доля от максимальной амплитуды).
-swayTier1Strength = 0.35
-swayTier2Strength = 0.70
-swayTier3Strength = 1.00
-
-[items.cider]
-drunkenness = 30
-uses = 2
-cooldownSeconds = 30
-effectDurationSeconds = 30
-speedAmplifier = 1
-
-[items.beer]
-drunkenness = 40
-uses = 2
-cooldownSeconds = 0
-healAmount = 16
-
-[items.vodka]
-drunkenness = 100
-uses = 4
-cooldownSeconds = 30
-effectDurationSeconds = 30
-glowRadius = 16
-
-[items.wine]
-drunkenness = 75
-uses = 4
-cooldownSeconds = 30
-effectDurationSeconds = 30
-damageReduction = 1
-speedPenaltyPercent = 10
-
-[items.honey]
-drunkenness = 30
-uses = 4
-cooldownSeconds = 10
-
-[items.tequila]
-drunkenness = 100
-uses = 4
-cooldownSeconds = 0
-effectDurationSeconds = 30
-burnDurationSeconds = 8
-burnIntervalSeconds = 2
-burnDamage = 1
-healingReductionPercent = 50
-
-[items.liqueur]
-drunkenness = 50
-uses = 2
-cooldownSeconds = 600
-effectDurationSeconds = 360
-miningSpeedBonusPercent = 50
-doubleLootChancePercent = 20
-
-[items.whisky]
-drunkenness = 80
-uses = 3
-cooldownSeconds = 30
-effectDurationSeconds = 10
-
-[items.rassol]
-uses = 1
-cooldownSeconds = 30
-
-```
+# Thresholds of effects and death.

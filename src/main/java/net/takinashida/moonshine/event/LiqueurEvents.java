@@ -38,7 +38,8 @@ public final class LiqueurEvents {
     private LiqueurEvents() {
     }
 
-    @SubscribeEvent
+    // LOWEST: применяем бонус последними, чтобы другие моды не перезаписали скорость.
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
         if (!player.hasEffect(ModEffects.LIQUEUR.get())) {
