@@ -14,42 +14,42 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * Ликёр.
+ * Травяной ликёр.
  *
  * Характеристики:
  *  - опьянение: +50;
  *  - 2 применения;
  *  - перезарядка: 10 минут;
- *  - эффект «Ликёр» на 6 минут:
+ *  - эффект «Травяной ликёр» на 6 минут:
  *      * +50% к скорости добычи киркой и топором;
  *      * 20% шанс двойного лута на железной/угольной руде и jeg:brimstone_ore.
  */
-public class Liqueur extends DrinkableItem {
+public class HerbalLiqueur extends DrinkableItem {
 
-    public Liqueur() {
+    public HerbalLiqueur() {
         super(new net.minecraft.world.item.Item.Properties());
     }
 
     @Override
     protected int getDrunkenness() {
-        return Config.liqueurDrunkenness;
+        return Config.herbalLiqueurDrunkenness;
     }
 
     @Override
     protected int getMaxUses() {
-        return Config.liqueurUses;
+        return Config.herbalLiqueurUses;
     }
 
     @Override
     protected int getCooldownSeconds() {
-        return Config.liqueurCooldownSeconds;
+        return Config.herbalLiqueurCooldownSeconds;
     }
 
     @Override
     protected void applyBonus(Player player, Level level) {
         player.addEffect(new MobEffectInstance(
-                ModEffects.LIQUEUR.get(),
-                secondsToTicks(Config.liqueurEffectDurationSeconds),
+                ModEffects.HERBAL_LIQUEUR.get(),
+                secondsToTicks(Config.herbalLiqueurEffectDurationSeconds),
                 0
         ));
     }
@@ -58,7 +58,7 @@ public class Liqueur extends DrinkableItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level,
                                 List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.alcomania.liqueur")
+        tooltip.add(Component.translatable("tooltip.alcomania.herbal_liqueur")
                 .withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

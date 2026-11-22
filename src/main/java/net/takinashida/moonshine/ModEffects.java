@@ -10,9 +10,10 @@ import net.takinashida.moonshine.effect.*;
 /**
  * Регистрация кастомных эффектов (MobEffect).
  *
- * Здесь одиннадцать эффектов (включая кастомное ночное зрение):
+ * Здесь двенадцать эффектов (включая кастомное ночное зрение):
  *  - alcomania:sway  — «Шатание»: маркер опьянения, на клиенте шатает камеру;
  *  - alcomania:cider — «Сидр»: положительный эффект от яблочного сидра (Скорость II);
+ *  - alcomania:ale — «Эль»: таймер, по окончании которого игрок исцеляется;
  *  - alcomania:vodka — «Водка»: подсветка сущностей в радиусе только для выпившего;
  *  - alcomania:wine  — «Вино»: -1 к входящему урону и -10% к скорости;
  *  - alcomania:whisky — «Виски»: полная неуязвимость, после снятия — смерть;
@@ -21,10 +22,11 @@ import net.takinashida.moonshine.effect.*;
  *  - alcomania:tequila — «Текила»: бафф, включающий горение от выстрелов;
  *  - alcomania:tequila_burn — «Горение»: урон во времени, пламя и -50% исцеления;
  *  - alcomania:night_vision — «Ночное зрение», которое не блокируется Hardcore True Darkness;
- *  - alcomania:liqueur — «Ликёр»: скорость добычи и шанс двойного лута.
+ *  - alcomania:herbal_liqueur — «Травяной ликёр»: скорость добычи и шанс двойного лута.
  *
  * Боевые эффекты вина и медовухи считаются в CombatEvents, горение
- * текилы — в TequilaEvents, а подсветка водки — на клиенте. Сами эффекты
+ * текилы — в TequilaEvents, лечение от эля — в AleEvents,
+ * а подсветка водки — на клиенте. Сами эффекты
  * служат маркерами с иконкой и таймером.
  */
 public final class ModEffects {
@@ -46,6 +48,14 @@ public final class ModEffects {
      */
     public static final RegistryObject<MobEffect> CIDER =
             EFFECTS.register("cider", CiderEffect::new);
+
+    /**
+     * Эффект «Эль».
+     * Выдаётся предметом Ale. Пока активен, ничего не делает;
+     * по окончании исцеляет игрока (см. AleEvents).
+     */
+    public static final RegistryObject<MobEffect> ALE =
+            EFFECTS.register("ale", AleEffect::new);
 
     /**
      * Эффект «Водка».
@@ -98,9 +108,9 @@ public final class ModEffects {
     public static final RegistryObject<MobEffect> NIGHT_VISION =
             EFFECTS.register("night_vision", NightVisionEffect::new);
 
-    /** «Ликёр»: +50% скорости добычи и 20% шанс двойного лута. */
-    public static final RegistryObject<MobEffect> LIQUEUR =
-            EFFECTS.register("liqueur", LiqueurEffect::new);
+    /** «Травяной ликёр»: +50% скорости добычи и 20% шанс двойного лута. */
+    public static final RegistryObject<MobEffect> HERBAL_LIQUEUR =
+            EFFECTS.register("herbal_liqueur", HerbalLiqueurEffect::new);
 
     private ModEffects() {
         // Утилитарный класс — создавать экземпляр не нужно.

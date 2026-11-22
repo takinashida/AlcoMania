@@ -170,6 +170,27 @@ public final class Config {
             .comment("Beer: HP restored per drink (2 HP = 1 heart).")
             .defineInRange("items.beer.healAmount", 12, 0, 100);
 
+    // ---- Ale ----
+    private static final ForgeConfigSpec.IntValue ALE_DRUNKENNESS = BUILDER
+            .comment("Ale: drunkenness per drink.")
+            .defineInRange("items.ale.drunkenness", 40, 0, 1000);
+
+    private static final ForgeConfigSpec.IntValue ALE_USES = BUILDER
+            .comment("Ale: number of uses (item durability).")
+            .defineInRange("items.ale.uses", 2, 1, 64);
+
+    private static final ForgeConfigSpec.IntValue ALE_COOLDOWN_SECONDS = BUILDER
+            .comment("Ale: cooldown between sips in seconds.")
+            .defineInRange("items.ale.cooldownSeconds", 10, 0, 3600);
+
+    private static final ForgeConfigSpec.IntValue ALE_EFFECT_DURATION_SECONDS = BUILDER
+            .comment("Ale: Ale effect duration in seconds.")
+            .defineInRange("items.ale.effectDurationSeconds", 8, 1, 3600);
+
+    private static final ForgeConfigSpec.IntValue ALE_HEAL_AMOUNT = BUILDER
+            .comment("Ale: HP restored when the Ale effect ends (2 HP = 1 heart).")
+            .defineInRange("items.ale.healAmount", 12, 0, 100);
+
     // ---- Vodka ----
     private static final ForgeConfigSpec.IntValue VODKA_DRUNKENNESS = BUILDER
             .comment("Vodka: drunkenness per drink.")
@@ -293,30 +314,30 @@ public final class Config {
             .comment("Tequila: incoming healing reduction for burning targets in percent (50 = -50%).")
             .defineInRange("items.tequila.healingReductionPercent", 50, 0, 100);
 
-    // ---- Liqueur ----
-    private static final ForgeConfigSpec.IntValue LIQUEUR_DRUNKENNESS = BUILDER
-            .comment("Liqueur: drunkenness per drink.")
-            .defineInRange("items.liqueur.drunkenness", 50, 0, 1000);
+    // ---- Herbal liqueur ----
+    private static final ForgeConfigSpec.IntValue HERBAL_LIQUEUR_DRUNKENNESS = BUILDER
+            .comment("Herbal liqueur: drunkenness per drink.")
+            .defineInRange("items.herbal_liqueur.drunkenness", 50, 0, 1000);
 
-    private static final ForgeConfigSpec.IntValue LIQUEUR_USES = BUILDER
-            .comment("Liqueur: number of uses (item durability).")
-            .defineInRange("items.liqueur.uses", 2, 1, 64);
+    private static final ForgeConfigSpec.IntValue HERBAL_LIQUEUR_USES = BUILDER
+            .comment("Herbal liqueur: number of uses (item durability).")
+            .defineInRange("items.herbal_liqueur.uses", 2, 1, 64);
 
-    private static final ForgeConfigSpec.IntValue LIQUEUR_COOLDOWN_SECONDS = BUILDER
-            .comment("Liqueur: cooldown between sips in seconds (10 minutes = 600).")
-            .defineInRange("items.liqueur.cooldownSeconds", 600, 0, 36000);
+    private static final ForgeConfigSpec.IntValue HERBAL_LIQUEUR_COOLDOWN_SECONDS = BUILDER
+            .comment("Herbal liqueur: cooldown between sips in seconds (10 minutes = 600).")
+            .defineInRange("items.herbal_liqueur.cooldownSeconds", 600, 0, 36000);
 
-    private static final ForgeConfigSpec.IntValue LIQUEUR_EFFECT_DURATION_SECONDS = BUILDER
-            .comment("Liqueur: Liqueur effect duration in seconds (6 minutes = 360).")
-            .defineInRange("items.liqueur.effectDurationSeconds", 360, 1, 36000);
+    private static final ForgeConfigSpec.IntValue HERBAL_LIQUEUR_EFFECT_DURATION_SECONDS = BUILDER
+            .comment("Herbal liqueur: effect duration in seconds (6 minutes = 360).")
+            .defineInRange("items.herbal_liqueur.effectDurationSeconds", 360, 1, 36000);
 
-    private static final ForgeConfigSpec.IntValue LIQUEUR_MINING_SPEED_BONUS_PERCENT = BUILDER
-            .comment("Liqueur: pickaxe/axe mining speed bonus in percent (50 = +50%).")
-            .defineInRange("items.liqueur.miningSpeedBonusPercent", 50, 0, 1000);
+    private static final ForgeConfigSpec.IntValue HERBAL_LIQUEUR_MINING_SPEED_BONUS_PERCENT = BUILDER
+            .comment("Herbal liqueur: pickaxe/axe mining speed bonus in percent (50 = +50%).")
+            .defineInRange("items.herbal_liqueur.miningSpeedBonusPercent", 50, 0, 1000);
 
-    private static final ForgeConfigSpec.IntValue LIQUEUR_DOUBLE_LOOT_CHANCE_PERCENT = BUILDER
-            .comment("Liqueur: double loot chance for iron/coal ore and jeg:brimstone_ore.")
-            .defineInRange("items.liqueur.doubleLootChancePercent", 20, 0, 100);
+    private static final ForgeConfigSpec.IntValue HERBAL_LIQUEUR_DOUBLE_LOOT_CHANCE_PERCENT = BUILDER
+            .comment("Herbal liqueur: double loot chance for iron/coal ore and jeg:brimstone_ore.")
+            .defineInRange("items.herbal_liqueur.doubleLootChancePercent", 20, 0, 100);
 
     /** Final config spec registered by MoonShine. */
     public static final ForgeConfigSpec SPEC = BUILDER.build();
@@ -356,6 +377,12 @@ public final class Config {
     public static int beerCooldownSeconds = 0;
     public static int beerHealAmount = 12;
 
+    public static int aleDrunkenness = 40;
+    public static int aleUses = 2;
+    public static int aleCooldownSeconds = 10;
+    public static int aleEffectDurationSeconds = 8;
+    public static int aleHealAmount = 12;
+
     public static int vodkaDrunkenness = 75;
     public static int vodkaUses = 4;
     public static int vodkaCooldownSeconds = 30;
@@ -391,12 +418,12 @@ public final class Config {
     public static int tequilaBurnDamage = 1;
     public static int tequilaHealingReductionPercent = 50;
 
-    public static int liqueurDrunkenness = 50;
-    public static int liqueurUses = 2;
-    public static int liqueurCooldownSeconds = 600;
-    public static int liqueurEffectDurationSeconds = 360;
-    public static int liqueurMiningSpeedBonusPercent = 50;
-    public static int liqueurDoubleLootChancePercent = 20;
+    public static int herbalLiqueurDrunkenness = 50;
+    public static int herbalLiqueurUses = 2;
+    public static int herbalLiqueurCooldownSeconds = 600;
+    public static int herbalLiqueurEffectDurationSeconds = 360;
+    public static int herbalLiqueurMiningSpeedBonusPercent = 50;
+    public static int herbalLiqueurDoubleLootChancePercent = 20;
 
     private Config() {
     }
@@ -441,6 +468,12 @@ public final class Config {
         beerCooldownSeconds = BEER_COOLDOWN_SECONDS.get();
         beerHealAmount = BEER_HEAL_AMOUNT.get();
 
+        aleDrunkenness = ALE_DRUNKENNESS.get();
+        aleUses = ALE_USES.get();
+        aleCooldownSeconds = ALE_COOLDOWN_SECONDS.get();
+        aleEffectDurationSeconds = ALE_EFFECT_DURATION_SECONDS.get();
+        aleHealAmount = ALE_HEAL_AMOUNT.get();
+
         vodkaDrunkenness = VODKA_DRUNKENNESS.get();
         vodkaUses = VODKA_USES.get();
         vodkaCooldownSeconds = VODKA_COOLDOWN_SECONDS.get();
@@ -476,11 +509,11 @@ public final class Config {
         tequilaBurnDamage = TEQUILA_BURN_DAMAGE.get();
         tequilaHealingReductionPercent = TEQUILA_HEALING_REDUCTION_PERCENT.get();
 
-        liqueurDrunkenness = LIQUEUR_DRUNKENNESS.get();
-        liqueurUses = LIQUEUR_USES.get();
-        liqueurCooldownSeconds = LIQUEUR_COOLDOWN_SECONDS.get();
-        liqueurEffectDurationSeconds = LIQUEUR_EFFECT_DURATION_SECONDS.get();
-        liqueurMiningSpeedBonusPercent = LIQUEUR_MINING_SPEED_BONUS_PERCENT.get();
-        liqueurDoubleLootChancePercent = LIQUEUR_DOUBLE_LOOT_CHANCE_PERCENT.get();
+        herbalLiqueurDrunkenness = HERBAL_LIQUEUR_DRUNKENNESS.get();
+        herbalLiqueurUses = HERBAL_LIQUEUR_USES.get();
+        herbalLiqueurCooldownSeconds = HERBAL_LIQUEUR_COOLDOWN_SECONDS.get();
+        herbalLiqueurEffectDurationSeconds = HERBAL_LIQUEUR_EFFECT_DURATION_SECONDS.get();
+        herbalLiqueurMiningSpeedBonusPercent = HERBAL_LIQUEUR_MINING_SPEED_BONUS_PERCENT.get();
+        herbalLiqueurDoubleLootChancePercent = HERBAL_LIQUEUR_DOUBLE_LOOT_CHANCE_PERCENT.get();
     }
 }

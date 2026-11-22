@@ -5,10 +5,11 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.takinashida.moonshine.item.Ale;
 import net.takinashida.moonshine.item.AppleCider;
 import net.takinashida.moonshine.item.BeerBottle;
+import net.takinashida.moonshine.item.HerbalLiqueur;
 import net.takinashida.moonshine.item.Honey;
-import net.takinashida.moonshine.item.Liqueur;
 import net.takinashida.moonshine.item.Rassol;
 import net.takinashida.moonshine.item.Tequila;
 import net.takinashida.moonshine.item.Vodka;
@@ -35,6 +36,10 @@ public final class ModItems {
     public static final RegistryObject<Item> BEER =
             ITEMS.register("beer", BeerBottle::new);
 
+    /** Эль: +40 опьянения, лечение 12 HP после окончания эффекта, 2 применения, кулдаун 10 сек. */
+    public static final RegistryObject<Item> ALE =
+            ITEMS.register("ale", Ale::new);
+
     /** Водка: +100 опьянения, подсветка сущностей в радиусе 16 блоков, 4 применения. */
     public static final RegistryObject<Item> VODKA =
             ITEMS.register("vodka", Vodka::new);
@@ -55,9 +60,9 @@ public final class ModItems {
     public static final RegistryObject<Item> TEQUILA =
             ITEMS.register("tequila", Tequila::new);
 
-    /** Ликёр: +50 опьянения, скорость добычи и двойной лут, 2 применения, кулдаун 10 мин. */
-    public static final RegistryObject<Item> LIQUEUR =
-            ITEMS.register("liqueur", Liqueur::new);
+    /** Травяной ликёр: +50 опьянения, скорость добычи и двойной лут, 2 применения, кулдаун 10 мин. */
+    public static final RegistryObject<Item> HERBAL_LIQUEUR =
+            ITEMS.register("herbal_liqueur", HerbalLiqueur::new);
 
     /** Рассол: снимает все эффекты и обнуляет опьянение, 1 применение. */
     public static final RegistryObject<Item> RASSOL =

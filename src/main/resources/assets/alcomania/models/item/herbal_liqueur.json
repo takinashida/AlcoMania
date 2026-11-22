@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "alcomania:item/liqueur"
+    "layer0": "alcomania:item/herbal_liqueur"
   }
 }

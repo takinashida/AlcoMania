@@ -22,12 +22,13 @@ public final class ModCreativeTabs {
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(ModItems.APPLE_CIDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.accept(ModItems.BEER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.accept(ModItems.ALE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.accept(ModItems.VODKA, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.accept(ModItems.WINE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.accept(ModItems.WHISKY, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.accept(ModItems.HONEY, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.accept(ModItems.TEQUILA, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            event.accept(ModItems.LIQUEUR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.accept(ModItems.HERBAL_LIQUEUR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             event.accept(ModItems.RASSOL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }

@@ -25,7 +25,7 @@ import net.takinashida.moonshine.MoonShine;
 import java.util.List;
 
 /**
- * Механика ликёра.
+ * Механика травяного ликёра.
  *
  *  - +50% к скорости добычи любой киркой/топором.
  *  - 20% шанс дополнительного предмета при добыче железной/угольной руды
@@ -33,16 +33,16 @@ import java.util.List;
  *    вне зависимости от уровня Fortune (не «удача»).
  */
 @Mod.EventBusSubscriber(modid = MoonShine.MOD_ID)
-public final class LiqueurEvents {
+public final class HerbalLiqueurEvents {
 
-    private LiqueurEvents() {
+    private HerbalLiqueurEvents() {
     }
 
     // LOWEST: применяем бонус последними, чтобы другие моды не перезаписали скорость.
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
-        if (!player.hasEffect(ModEffects.LIQUEUR.get())) {
+        if (!player.hasEffect(ModEffects.HERBAL_LIQUEUR.get())) {
             return;
         }
 
@@ -51,7 +51,7 @@ public final class LiqueurEvents {
             return;
         }
 
-        float multiplier = 1.0F + Config.liqueurMiningSpeedBonusPercent / 100.0F;
+        float multiplier = 1.0F + Config.herbalLiqueurMiningSpeedBonusPercent / 100.0F;
         event.setNewSpeed(event.getNewSpeed() * multiplier);
     }
 
@@ -76,7 +76,7 @@ public final class LiqueurEvents {
         }
 
         Player player = event.getPlayer();
-        if (!player.hasEffect(ModEffects.LIQUEUR.get())) {
+        if (!player.hasEffect(ModEffects.HERBAL_LIQUEUR.get())) {
             return;
         }
 
@@ -85,7 +85,7 @@ public final class LiqueurEvents {
             return;
         }
 
-        if (level.random.nextFloat() >= Config.liqueurDoubleLootChancePercent / 100.0F) {
+        if (level.random.nextFloat() >= Config.herbalLiqueurDoubleLootChancePercent / 100.0F) {
             return;
         }
 
